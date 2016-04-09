@@ -2,6 +2,9 @@ package org.flixel;
 
 import java.util.Iterator;
 
+import com.bitfire.postprocessing.PostProcessor;
+import com.bitfire.postprocessing.effects.Bloom;
+import com.bitfire.utils.ShaderLoader;
 import org.flixel.event.IFlxCamera;
 import org.flixel.event.IFlxCollision;
 import org.flixel.event.IFlxObject;
@@ -289,6 +292,7 @@ public class FlxG
 	 * Plugin for switching between fullscreen and windowed mode
 	 */
 	static FullscreenManager fullscreenManager;
+	private static PostProcessor postProcessor;
 
 	static public String getLibraryName()
 	{
@@ -2170,6 +2174,16 @@ public class FlxG
 	 */
 	static void lockCameras()
 	{
+
+		if (postProcessor == null) {
+			ShaderLoader.BasePath = "shaders/";
+			postProcessor = new PostProcessor(1024, 720, false, false, true);
+			Bloom bloom = new Bloom((int) (1024 * 0.25f), (int) (720 * 0.25f));
+			postProcessor.addEffect(bloom);
+		}
+
+		postProcessor.capture();
+
 		FlxCamera cam = FlxG._activeCamera;
 
 		//Update camera matrices
@@ -2192,6 +2206,8 @@ public class FlxG
 		FlxG.batch.setProjectionMatrix(cam._glCamera.combined);
 		((GdxGraphics) FlxG.flashGfx).setProjectionMatrix(cam._glCamera.combined);
 
+
+
 		//Get ready for drawing
 		FlxG.batch.begin();
 		((GdxGraphics) FlxG.flashGfx).begin();
@@ -2207,7 +2223,11 @@ public class FlxG
 		FlxG.batch.end();
 		((GdxGraphics) FlxG.flashGfx).end();
 
+
+
 		cam.drawFX();
+
+		postProcessor.render();
 	}
 
 	/**

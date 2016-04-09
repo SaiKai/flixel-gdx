@@ -59,16 +59,16 @@ public class FullscreenManager extends FlxBasic
 	 */
 	public void toggle()
 	{
-		if(inFullscreen)
-			Gdx.graphics.setDisplayMode(windowedWidth, windowedHeight, false);
-		else if(useDesktopDisplayMode)
-		{
-			DisplayMode desktopDisplayMode = Gdx.graphics.getDesktopDisplayMode();
-			Gdx.graphics.setDisplayMode(desktopDisplayMode.width, desktopDisplayMode.height, true);
-		}
-		else
-			Gdx.graphics.setDisplayMode(fullscreenWidth, fullscreenHeight, true);
-		inFullscreen = !inFullscreen;
+//		if(inFullscreen)
+//			Gdx.graphics.setDisplayMode(windowedWidth, windowedHeight, false);
+//		else if(useDesktopDisplayMode)
+//		{
+//			DisplayMode desktopDisplayMode = Gdx.graphics.getDesktopDisplayMode();
+//			Gdx.graphics.setDisplayMode(desktopDisplayMode.width, desktopDisplayMode.height, true);
+//		}
+//		else
+//			Gdx.graphics.setDisplayMode(fullscreenWidth, fullscreenHeight, true);
+//		inFullscreen = !inFullscreen;
 	}
 	
 	@Override
